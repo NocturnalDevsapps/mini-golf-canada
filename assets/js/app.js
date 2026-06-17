@@ -13,6 +13,16 @@
     return 2 * radius * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
+  function trackEvent(name, params) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, params || {});
+    }
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
   function relativeToRoot(path) {
     var current = location.pathname.replace(/\\/g, "/");
     var local = current.includes("/site/") ? current.split("/site/")[1] : current.replace(/^\/+/, "");
@@ -22,13 +32,76 @@
     return "../".repeat(depth) + path;
   }
 
+  function fallbackImageSrc() {
+    return relativeToRoot("assets/images/mini-golf-canada-hero-scenic.webp");
+  }
+
+  function attachImageFallbacks(root) {
+    (root || document).querySelectorAll("img[data-image-fallback='true']").forEach(function (img) {
+      if (img.dataset.fallbackAttached) return;
+      img.dataset.fallbackAttached = "true";
+      img.addEventListener("error", function () {
+        if (img.dataset.fallbackUsed) return;
+        img.dataset.fallbackUsed = "true";
+        img.src = fallbackImageSrc();
+      });
+    });
+  }
+
+  function activeFilters(form) {
+    return Array.from(form.querySelectorAll("[name=feature]:checked")).map(function (input) {
+      return input.value;
+    });
+  }
+
+  function itemMatchesFilter(item, filter) {
+    var text = String((item.search || "") + " " + (item.tags || []).join(" ")).toLowerCase();
+    if (filter === "price") return !!item.hasPrice;
+    if (filter === "rating") return Number(item.rating || 0) >= 4;
+    if (filter === "indoor") return text.indexOf("indoor") > -1;
+    if (filter === "outdoor") return text.indexOf("outdoor") > -1;
+    if (filter === "glow") return text.indexOf("glow") > -1;
+    if (filter === "birthday") return text.indexOf("birthday") > -1 || text.indexOf("party") > -1;
+    if (filter === "arcade") return text.indexOf("arcade") > -1;
+    if (filter === "food") return text.indexOf("food") > -1 || text.indexOf("drinks") > -1;
+    if (filter === "accessible") return text.indexOf("accessible") > -1 || text.indexOf("wheelchair") > -1;
+    return true;
+  }
+
+  function renderMap(items) {
+    var map = document.querySelector(".js-results-map");
+    if (!map) return;
+    var withCoords = (items || []).filter(function (item) {
+      return typeof item.lat === "number" && typeof item.lng === "number";
+    }).slice(0, 40);
+    map.innerHTML = "";
+    if (!withCoords.length) {
+      map.innerHTML = '<p class="map-empty">No mapped listings are available for this result set.</p>';
+      return;
+    }
+    var bounds = {minLat: 41, maxLat: 83, minLng: -141, maxLng: -52};
+    withCoords.forEach(function (item) {
+      var x = clamp(((item.lng - bounds.minLng) / (bounds.maxLng - bounds.minLng)) * 100, 4, 96);
+      var y = clamp((1 - ((item.lat - bounds.minLat) / (bounds.maxLat - bounds.minLat))) * 100, 6, 92);
+      var point = document.createElement("a");
+      point.className = "map-point";
+      point.href = relativeToRoot(item.path);
+      point.style.left = x.toFixed(2) + "%";
+      point.style.top = y.toFixed(2) + "%";
+      point.title = item.name + " in " + item.city + ", " + item.province;
+      point.setAttribute("aria-label", point.title);
+      point.innerHTML = "<span>" + escapeHtml(item.name) + "</span>";
+      map.appendChild(point);
+    });
+  }
+
   function courseCard(item) {
     var article = document.createElement("article");
     article.className = "course-card";
     var sideNote = item.distance ? "<span>" + item.distance.toFixed(1) + " km away</span>" : "<span>" + escapeHtml(item.price || "Check prices") + "</span>";
     article.innerHTML =
       '<a class="course-image" href="' + escapeHtml(relativeToRoot(item.path)) + '">' +
-      '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + ' mini golf in ' + escapeHtml(item.city) + ', ' + escapeHtml(item.province) + '" loading="lazy" decoding="async"></a>' +
+      '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + ' mini golf in ' + escapeHtml(item.city) + ', ' + escapeHtml(item.province) + '" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true"></a>' +
       '<div class="course-body"><div class="course-meta">' +
       (item.rating ? escapeHtml(item.rating.toFixed(1) + " rating") : "No rating yet") +
       (item.reviews ? " · " + escapeHtml(String(item.reviews)) + " reviews" : "") +
@@ -36,6 +109,7 @@
       '<p class="course-location">' + escapeHtml(item.city) + ", " + escapeHtml(item.province) + '</p>' +
       '<div class="tag-row">' + (item.tags || []).slice(0, 4).map(function (tag) { return '<span class="tag">' + escapeHtml(tag) + '</span>'; }).join("") + '</div>' +
       '<div class="course-actions"><a class="text-link" href="' + escapeHtml(relativeToRoot(item.path)) + '">View course</a>' + sideNote + '</div></div>';
+    attachImageFallbacks(article);
     return article;
   }
 
@@ -46,7 +120,8 @@
     });
   }
 
-  function runSearch(form) {
+  function runSearch(form, options) {
+    options = options || {};
     var queryInput = form.querySelector("[name=q]");
     var provinceInput = form.querySelector("[name=province]");
     var results = document.querySelector(".js-search-results");
@@ -55,17 +130,28 @@
 
     var tokens = searchTokens(queryInput && queryInput.value);
     var province = (provinceInput && provinceInput.value || "").trim();
+    var filters = activeFilters(form);
     var matches = (window.MGC_LISTINGS || []).filter(function (item) {
       return (!tokens.length || tokens.every(function (token) { return item.search.indexOf(token) > -1; })) &&
-        (!province || item.province === province);
+        (!province || item.province === province) &&
+        (!filters.length || filters.every(function (filter) { return itemMatchesFilter(item, filter); }));
     }).slice(0, 24);
 
     results.innerHTML = "";
     matches.forEach(function (item) { results.appendChild(courseCard(item)); });
+    renderMap(matches);
     if (status) {
       status.textContent = matches.length
         ? "Showing " + matches.length + " matching mini golf listing" + (matches.length === 1 ? "." : "s.")
         : "No matching courses found. Try a nearby city, province, mini putt, glow golf, indoor, or outdoor.";
+    }
+    if (options.track) {
+      trackEvent("directory_search", {
+        search_term: queryInput ? queryInput.value.trim() : "",
+        province: province || "all",
+        filters: filters.join(",") || "none",
+        results_count: matches.length,
+      });
     }
   }
 
@@ -95,11 +181,14 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    attachImageFallbacks(document);
+    renderMap((window.MGC_LISTINGS || []).slice(0, 24));
+
     document.querySelectorAll(".js-directory-search").forEach(function (form) {
       applyQueryParams(form);
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-        runSearch(form);
+        runSearch(form, {track:true});
         var input = form.querySelector("[name=q]");
         if (input && location.pathname.includes("/search/")) {
           var params = new URLSearchParams(location.search);
@@ -108,12 +197,19 @@
         }
       });
       form.addEventListener("input", function () { runSearch(form); });
+      form.addEventListener("change", function (event) {
+        runSearch(form);
+        if (event.target && event.target.name === "feature") {
+          trackEvent("directory_filter_change", {filter: event.target.value, checked: event.target.checked});
+        }
+      });
     });
 
     document.querySelectorAll(".js-use-location").forEach(function (button) {
       button.addEventListener("click", function () {
         var results = document.querySelector(".js-search-results");
         var status = document.querySelector(".js-search-status");
+        trackEvent("use_location_click", {page_path: location.pathname});
         if (!results) {
           setStatus(status, "Search results are not available on this page.");
           return;
@@ -142,17 +238,35 @@
           }).slice(0, 18);
           results.innerHTML = "";
           closest.forEach(function (item) { results.appendChild(courseCard(item)); });
+          renderMap(closest);
           setStatus(status, closest.length
             ? "Showing the closest mini golf listings to your current location."
             : "No listings with coordinates were available. Search by city or province instead.");
+          trackEvent("location_search_success", {results_count: closest.length});
           button.disabled = false;
           button.textContent = previousLabel;
         }, function (error) {
           setStatus(status, locationErrorMessage(error));
+          trackEvent("location_search_error", {error_code: error && error.code ? error.code : 0});
           button.disabled = false;
           button.textContent = previousLabel;
         }, {enableHighAccuracy:false, timeout:8000, maximumAge:300000});
       });
+    });
+
+    document.addEventListener("click", function (event) {
+      var link = event.target.closest && event.target.closest("a");
+      if (!link) return;
+      var href = link.getAttribute("href") || "";
+      if (href.indexOf("tel:") === 0) {
+        trackEvent("phone_click", {link_url: href, page_path: location.pathname});
+      } else if (href.indexOf("mailto:") === 0) {
+        trackEvent("email_click", {page_path: location.pathname});
+      } else if (link.classList.contains("map-point")) {
+        trackEvent("map_result_click", {link_url: link.href, page_path: location.pathname});
+      } else if (link.target === "_blank") {
+        trackEvent("outbound_click", {link_url: link.href, link_text: link.textContent.trim().slice(0, 80)});
+      }
     });
   });
 })();

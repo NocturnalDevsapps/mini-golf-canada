@@ -52,6 +52,7 @@
       <a href="cities/index.html">Cities</a>
       <a href="search/index.html">Nearby</a>
       <a href="guides/index.html">Guides</a>
+      <a href="submit-course/index.html">Submit</a>
     </nav>
     <a class="header-action" href="about/index.html">About</a>
   </header>
@@ -74,6 +75,14 @@
             </select>
             <button type="submit">Search</button>
           </div>
+          
+          <fieldset class="filter-panel js-search-filters">
+            <legend>Filters</legend>
+            <div class="filter-options">
+              <label><input type="checkbox" name="feature" value="indoor"> <span>Indoor</span></label><label><input type="checkbox" name="feature" value="outdoor"> <span>Outdoor</span></label><label><input type="checkbox" name="feature" value="glow"> <span>Glow</span></label><label><input type="checkbox" name="feature" value="birthday"> <span>Birthday parties</span></label><label><input type="checkbox" name="feature" value="arcade"> <span>Arcade</span></label><label><input type="checkbox" name="feature" value="food"> <span>Food &amp; drinks</span></label><label><input type="checkbox" name="feature" value="accessible"> <span>Accessible</span></label><label><input type="checkbox" name="feature" value="price"> <span>Price listed</span></label><label><input type="checkbox" name="feature" value="rating"> <span>Rated 4+</span></label>
+            </div>
+          </fieldset>
+    
           <button class="location-button js-use-location" type="button">Use my location</button>
         </form>
       </div>
@@ -89,10 +98,11 @@
         <p>Use your location or search manually to find fast options for mini golf near me, mini putt near me, birthday parties, date night, and family activities.</p>
       </div>
       <div class="js-search-status status-note" role="status" aria-live="polite">Enter a city or use your location to compare nearby courses.</div>
+      <div class="results-map-shell"><h3>Map View</h3><div class="results-map js-results-map" aria-label="Map view of current mini golf results"></div></div>
       <div class="directory-grid js-search-results">
     <article class="course-card">
       <a class="course-image" href="courses/reality-drop-winnipeg-mb/index.html" aria-label="View REALITY DROP">
-        <img src="https://realitydrop.ca/wp-content/uploads/2023/08/Man-wearing-futuristic-VR.webp" alt="REALITY DROP mini golf in Winnipeg, Manitoba" loading="lazy" decoding="async">
+        <img src="https://realitydrop.ca/wp-content/uploads/2023/08/Man-wearing-futuristic-VR.webp" alt="REALITY DROP mini golf in Winnipeg, Manitoba" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 1774 reviews</div>
@@ -109,7 +119,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/another-world-vr-arena-peterborough-peterborough-on/index.html" aria-label="View Another World VR Arena Peterborough">
-        <img src="https://peterborough.another-world.com/wp-content/themes/AnotherWorld/assets/images/aw_image_top.webp" alt="Another World VR Arena Peterborough mini golf in Peterborough, Ontario" loading="lazy" decoding="async">
+        <img src="https://peterborough.another-world.com/wp-content/themes/AnotherWorld/assets/images/aw_image_top.webp" alt="Another World VR Arena Peterborough mini golf in Peterborough, Ontario" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 322 reviews</div>
@@ -126,7 +136,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/station-3-saint-hubert-qc/index.html" aria-label="View Station 3">
-        <img src="https://static.wixstatic.com/media/901df0_3bd72a984ab94dfa88aac39633a4def8~mv2.jpg/v1/crop/x_3,y_0,w_1533,h_1024/fill/w_423,h_282,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1740_edited.jpg" alt="Station 3 mini golf in Saint-Hubert, Quebec" loading="lazy" decoding="async">
+        <img src="https://static.wixstatic.com/media/901df0_3bd72a984ab94dfa88aac39633a4def8~mv2.jpg/v1/crop/x_3,y_0,w_1533,h_1024/fill/w_423,h_282,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1740_edited.jpg" alt="Station 3 mini golf in Saint-Hubert, Quebec" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 254 reviews</div>
@@ -143,7 +153,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/another-world-vr-arena-sudbury-greater-sudbury-on/index.html" aria-label="View Another World VR Arena Sudbury">
-        <img src="https://sudbury.another-world.com/wp-content/themes/AnotherWorld/assets/images/aw_image_top.webp" alt="Another World VR Arena Sudbury mini golf in Greater Sudbury, Ontario" loading="lazy" decoding="async">
+        <img src="https://sudbury.another-world.com/wp-content/themes/AnotherWorld/assets/images/aw_image_top.webp" alt="Another World VR Arena Sudbury mini golf in Greater Sudbury, Ontario" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 89 reviews</div>
@@ -160,7 +170,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/carnarvon-golf-facility-carnarvon-on/index.html" aria-label="View Carnarvon Golf Facility">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGR6u44taJ1WhVUDlCBD8MpLUvrzTFOty8m7OGbfMhZynXHoz9ij2dxx2XUGq9q_6ZEe8cvCaixVZavwXNqJ4ruF7FuP3WUj6xo-X2m-fdt_BPknpr79Pkg59iyzV7-UkQ5Dxreuw=w800-h500-k-no" alt="Carnarvon Golf Facility mini golf in Carnarvon, Ontario" loading="lazy" decoding="async">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGR6u44taJ1WhVUDlCBD8MpLUvrzTFOty8m7OGbfMhZynXHoz9ij2dxx2XUGq9q_6ZEe8cvCaixVZavwXNqJ4ruF7FuP3WUj6xo-X2m-fdt_BPknpr79Pkg59iyzV7-UkQ5Dxreuw=w800-h500-k-no" alt="Carnarvon Golf Facility mini golf in Carnarvon, Ontario" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 65 reviews</div>
@@ -177,7 +187,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/ovg-putt-lounge-kelowna-bc/index.html" aria-label="View OVG Putt Lounge">
-        <img src="https://static.wixstatic.com/media/4ad306_8f68573977c1428f8ae829b30d7f3260~mv2.png/v1/fill/w_477,h_312,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/WEBSITE%20landscape%20(3).png" alt="OVG Putt Lounge mini golf in Kelowna, British Columbia" loading="lazy" decoding="async">
+        <img src="https://static.wixstatic.com/media/4ad306_8f68573977c1428f8ae829b30d7f3260~mv2.png/v1/fill/w_477,h_312,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/WEBSITE%20landscape%20(3).png" alt="OVG Putt Lounge mini golf in Kelowna, British Columbia" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 15 reviews</div>
@@ -194,7 +204,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/projct-golf-experience-edmonton-ab/index.html" aria-label="View PROJCT Golf Experience">
-        <img src="https://pgxyeg.com/wp-content/uploads/2025/10/IMG_6729-2048x1365.jpg" alt="PROJCT Golf Experience mini golf in Edmonton, Alberta" loading="lazy" decoding="async">
+        <img src="https://pgxyeg.com/wp-content/uploads/2025/10/IMG_6729-2048x1365.jpg" alt="PROJCT Golf Experience mini golf in Edmonton, Alberta" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 11 reviews</div>
@@ -211,7 +221,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/miniature-golf-store-welland-on/index.html" aria-label="View MINIATURE GOLF STORE">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGorU-W4JEJsTEyv-44-_5-faj9Y0CTOS_gn2f69J9UJc16Ztr4zouU2cNnx1G7ArWhkbkABsS-PR8beKviHDTQfDbeiA2g7mUWO3QuG68DStiUt30BxD1mz0EoY6Ykq9-f4jtiWM_I8u_g=w800-h500-k-no" alt="MINIATURE GOLF STORE mini golf in Welland, Ontario" loading="lazy" decoding="async">
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGorU-W4JEJsTEyv-44-_5-faj9Y0CTOS_gn2f69J9UJc16Ztr4zouU2cNnx1G7ArWhkbkABsS-PR8beKviHDTQfDbeiA2g7mUWO3QuG68DStiUt30BxD1mz0EoY6Ykq9-f4jtiWM_I8u_g=w800-h500-k-no" alt="MINIATURE GOLF STORE mini golf in Welland, Ontario" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 7 reviews</div>
@@ -228,7 +238,7 @@
     
     <article class="course-card">
       <a class="course-image" href="courses/castle-putt-didsbury-ab/index.html" aria-label="View Castle Putt">
-        <img src="https://www.castleputt.ca/cdn/shop/files/4-1.png?v=1775889800&amp;width=2560" alt="Castle Putt mini golf in Didsbury, Alberta" loading="lazy" decoding="async">
+        <img src="https://www.castleputt.ca/cdn/shop/files/4-1.png?v=1775889800&amp;width=2560" alt="Castle Putt mini golf in Didsbury, Alberta" loading="lazy" decoding="async" width="800" height="500" data-image-fallback="true">
       </a>
       <div class="course-body">
         <div class="course-meta">5.0 rating · 4 reviews</div>
@@ -302,6 +312,7 @@
       <a href="provinces/index.html">Browse provinces</a>
       <a href="cities/index.html">Browse cities</a>
       <a href="guides/index.html">Mini golf guides</a>
+      <a href="submit-course/index.html">Submit or correct a course</a>
       <a href="editorial-policy/index.html">Editorial policy</a>
       <a href="privacy/index.html">Privacy</a>
       <a href="contact/index.html">Contact</a>
