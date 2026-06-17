@@ -78,6 +78,22 @@
     if (q || province || location.pathname.includes("/search/")) runSearch(form);
   }
 
+  function isLocalHost() {
+    return /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  }
+
+  function setStatus(status, message) {
+    if (status) status.textContent = message;
+  }
+
+  function locationErrorMessage(error) {
+    if (!error) return "Location could not be checked. Search by city or province instead.";
+    if (error.code === 1) return "Location permission was denied. Enable location for this site or search by city.";
+    if (error.code === 2) return "Your location could not be determined. Search by city or province instead.";
+    if (error.code === 3) return "Location lookup timed out. Try again or search by city.";
+    return "Location could not be checked. Search by city or province instead.";
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".js-directory-search").forEach(function (form) {
       applyQueryParams(form);
@@ -98,11 +114,22 @@
       button.addEventListener("click", function () {
         var results = document.querySelector(".js-search-results");
         var status = document.querySelector(".js-search-status");
-        if (!navigator.geolocation) {
-          if (status) status.textContent = "Location is not available in this browser.";
+        if (!results) {
+          setStatus(status, "Search results are not available on this page.");
           return;
         }
-        if (status) status.textContent = "Checking your location...";
+        if (!window.isSecureContext && !isLocalHost()) {
+          setStatus(status, "Location sorting needs a secure connection. Search by city for now and try location again once HTTPS is available.");
+          return;
+        }
+        if (!navigator.geolocation) {
+          setStatus(status, "Location is not available in this browser. Search by city or province instead.");
+          return;
+        }
+        var previousLabel = button.textContent;
+        button.disabled = true;
+        button.textContent = "Checking location...";
+        setStatus(status, "Checking your location...");
         navigator.geolocation.getCurrentPosition(function (position) {
           var lat = position.coords.latitude;
           var lng = position.coords.longitude;
@@ -115,9 +142,15 @@
           }).slice(0, 18);
           results.innerHTML = "";
           closest.forEach(function (item) { results.appendChild(courseCard(item)); });
-          if (status) status.textContent = "Showing the closest mini golf listings to your current location.";
-        }, function () {
-          if (status) status.textContent = "Location permission was not granted. You can still search by city or province.";
+          setStatus(status, closest.length
+            ? "Showing the closest mini golf listings to your current location."
+            : "No listings with coordinates were available. Search by city or province instead.");
+          button.disabled = false;
+          button.textContent = previousLabel;
+        }, function (error) {
+          setStatus(status, locationErrorMessage(error));
+          button.disabled = false;
+          button.textContent = previousLabel;
         }, {enableHighAccuracy:false, timeout:8000, maximumAge:300000});
       });
     });
