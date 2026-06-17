@@ -3,7 +3,7 @@
   "short_name": "Mini Golf CA",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#0f7b45",
+  "theme_color": "#0b6f3a",
   "background_color": "#ffffff",
   "icons": [
     {

@@ -12,7 +12,7 @@
   <meta property="og:title" content="Mini Golf Near Me Canada | Mini Putt &amp; Courses">
   <meta property="og:description" content="Find mini golf near me in Canada. Compare mini putt, indoor glow golf, outdoor courses, prices, photos, reviews, birthday party options, and city pages.">
   <meta property="og:url" content="https://minigolfcanada.ca/">
-  <meta property="og:image" content="https://minigolfcanada.ca/assets/images/mini-golf-canada-og.jpg">
+  <meta property="og:image" content="https://minigolfcanada.ca/assets/images/mini-golf-canada-og-v2.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0f7b45">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -29,14 +29,23 @@
   <script defer src="assets/js/listings.js"></script>
   <script defer src="assets/js/app.js"></script>
   
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://minigolfcanada.ca/#organization","name":"Mini Golf Canada","url":"https://minigolfcanada.ca/","logo":"https://minigolfcanada.ca/assets/images/mini-golf-canada-og.jpg"},{"@type":"WebSite","@id":"https://minigolfcanada.ca/#website","name":"Mini Golf Canada","url":"https://minigolfcanada.ca/","publisher":{"@id":"https://minigolfcanada.ca/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://minigolfcanada.ca/search/?q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"FAQPage","@id":"https://minigolfcanada.ca/#faq","mainEntity":[{"@type":"Question","name":"How do I find mini golf near me in Canada?","acceptedAnswer":{"@type":"Answer","text":"Search by city, province, course name, mini putt, glow golf, indoor mini golf, outdoor mini golf, or use the location feature to compare nearby courses."}},{"@type":"Question","name":"Does Mini Golf Canada include mini putt near me?","acceptedAnswer":{"@type":"Answer","text":"Yes. Mini Golf Canada uses both mini golf and mini putt language because both are common search terms for Canadian putting courses."}},{"@type":"Question","name":"Are mini golf prices listed?","acceptedAnswer":{"@type":"Answer","text":"When public price details were found, they are summarized on the listing. Prices can change, so visitors should confirm with the official venue before visiting."}}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://minigolfcanada.ca/#organization","name":"Mini Golf Canada","url":"https://minigolfcanada.ca/","logo":"https://minigolfcanada.ca/assets/images/mini-golf-canada-logo.svg"},{"@type":"WebSite","@id":"https://minigolfcanada.ca/#website","name":"Mini Golf Canada","url":"https://minigolfcanada.ca/","publisher":{"@id":"https://minigolfcanada.ca/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://minigolfcanada.ca/search/?q={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"FAQPage","@id":"https://minigolfcanada.ca/#faq","mainEntity":[{"@type":"Question","name":"How do I find mini golf near me in Canada?","acceptedAnswer":{"@type":"Answer","text":"Search by city, province, course name, mini putt, glow golf, indoor mini golf, outdoor mini golf, or use the location feature to compare nearby courses."}},{"@type":"Question","name":"Does Mini Golf Canada include mini putt near me?","acceptedAnswer":{"@type":"Answer","text":"Yes. Mini Golf Canada uses both mini golf and mini putt language because both are common search terms for Canadian putting courses."}},{"@type":"Question","name":"Are mini golf prices listed?","acceptedAnswer":{"@type":"Answer","text":"When public price details were found, they are summarized on the listing. Prices can change, so visitors should confirm with the official venue before visiting."}}]}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Mini Golf Canada home">
-      <span class="brand-mark" aria-hidden="true">MG</span>
-      <span>Mini Golf Canada</span>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" focusable="false">
+          <path class="logo-water" d="M8 44c10 8 33 9 48 0-4 11-15 17-27 16C17 59 9 53 8 44Z"/>
+          <path class="logo-green" d="M12 42c4-13 14-21 27-21 6 0 10 1 13 4-5 1-9 4-12 8 7 0 11 3 13 8-7 5-18 7-29 5-5-1-9-2-12-4Z"/>
+          <path class="logo-flagpole" d="M22 8v34" />
+          <path class="logo-flag" d="M22 9h23l-7 7 7 7H22Z"/>
+          <circle class="logo-hole" cx="30" cy="39" r="7"/>
+          <path class="logo-putter" d="M42 45h12" />
+        </svg>
+      </span>
+      <span class="brand-text"><strong>Mini Golf</strong><span>Canada</span></span>
     </a>
     <nav class="site-nav" aria-label="Main navigation">
       <a href="provinces/index.html">Provinces</a>
@@ -49,13 +58,14 @@
   <main id="main">
     
     <section class="hero">
+      <img class="hero-bg" src="assets/images/mini-golf-canada-hero-scenic.webp" alt="Scenic mini golf course with putting greens, flags, water and Canadian landscape" fetchpriority="high" width="1920" height="1080">
       <div class="hero-copy">
         <h1>Mini Golf Near Me in Canada</h1>
         <p>Find mini golf near me, mini putt near me, indoor glow golf, outdoor courses, prices, photos, ratings, birthday party options, and family-friendly course signals across Canada.</p>
         <form class="search-panel js-directory-search" role="search">
           <label>
             <span>Search by course, city, province, or feature</span>
-            <input name="q" type="search" placeholder="mini golf near me, Toronto glow golf, Calgary mini putt">
+            <input name="q" type="search" placeholder="Course name, city, or keyword">
           </label>
           <div class="search-row">
             <select name="province" aria-label="Province">
@@ -67,8 +77,10 @@
           <button class="location-button js-use-location" type="button">Use my location</button>
         </form>
       </div>
-      <div class="hero-media">
-        <img src="assets/images/mini-golf-canada-hero.webp" alt="Mini golf course scene in Canada" fetchpriority="high">
+      <div class="hero-stat-strip" aria-label="Directory summary">
+        <span><strong>358</strong> listings</span>
+        <span><strong>244</strong> city pages</span>
+        <span><strong>11</strong> provinces and territories</span>
       </div>
     </section>
     <section id="nearby" class="section search-results-section">
@@ -232,11 +244,14 @@
     </article>
     </div>
     </section>
-    <section class="section split-band">
-      <div>
+    <section class="section split-band province-band">
+      <div class="section-copy">
         <h2>Browse Mini Golf by Province</h2>
         <p>Every province page includes crawlable course links, top cities, price notes, and local mini putt search terms so visitors can move from broad research to a specific course quickly.</p>
       </div>
+      <figure class="province-visual">
+        <img src="assets/images/mini-golf-canada-map.webp" alt="Illustrated Canada map made of mini golf greens and red course flags" loading="lazy" decoding="async" width="1400" height="768">
+      </figure>
       <div class="province-grid"><a class="province-link" href="provinces/alberta/index.html"><strong>Alberta</strong><span>44 courses</span></a><a class="province-link" href="provinces/british-columbia/index.html"><strong>British Columbia</strong><span>41 courses</span></a><a class="province-link" href="provinces/manitoba/index.html"><strong>Manitoba</strong><span>16 courses</span></a><a class="province-link" href="provinces/new-brunswick/index.html"><strong>New Brunswick</strong><span>11 courses</span></a><a class="province-link" href="provinces/newfoundland-and-labrador/index.html"><strong>Newfoundland and Labrador</strong><span>2 courses</span></a><a class="province-link" href="provinces/nova-scotia/index.html"><strong>Nova Scotia</strong><span>6 courses</span></a><a class="province-link" href="provinces/ontario/index.html"><strong>Ontario</strong><span>134 courses</span></a><a class="province-link" href="provinces/prince-edward-island/index.html"><strong>Prince Edward Island</strong><span>6 courses</span></a><a class="province-link" href="provinces/quebec/index.html"><strong>Quebec</strong><span>76 courses</span></a><a class="province-link" href="provinces/saskatchewan/index.html"><strong>Saskatchewan</strong><span>21 courses</span></a><a class="province-link" href="provinces/yukon/index.html"><strong>Yukon</strong><span>1 courses</span></a></div>
     </section>
     <section class="section">
@@ -258,7 +273,7 @@
         <h2>Built for useful mini golf near me research</h2>
         <p>Mini Golf Canada is structured around the things people actually check before choosing a course nearby: distance, photos, price signals, reviews, indoor versus outdoor play, glow golf, accessibility, party options, food, and nearby family activities.</p>
       </div>
-      <div class="stat-grid"><div class="stat"><strong>358</strong><span>Canadian listings</span></div><div class="stat"><strong>11</strong><span>provinces and territories</span></div><div class="stat"><strong>244</strong><span>city pages</span></div><div class="stat"><strong>8</strong><span>image URLs per listing</span></div></div>
+      <div class="stat-grid"><div class="stat"><strong>358</strong><span>Canadian listings</span></div><div class="stat"><strong>11</strong><span>provinces and territories</span></div><div class="stat"><strong>244</strong><span>city pages</span></div><div class="stat"><strong>Photos</strong><span>course galleries where available</span></div></div>
     </section>
     <section class="section faq">
       <h2>Mini Golf Canada FAQ</h2>
@@ -270,7 +285,17 @@
   </main>
   <footer class="site-footer">
     <div>
-      <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">MG</span><span>Mini Golf Canada</span></a>
+      <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" focusable="false">
+          <path class="logo-water" d="M8 44c10 8 33 9 48 0-4 11-15 17-27 16C17 59 9 53 8 44Z"/>
+          <path class="logo-green" d="M12 42c4-13 14-21 27-21 6 0 10 1 13 4-5 1-9 4-12 8 7 0 11 3 13 8-7 5-18 7-29 5-5-1-9-2-12-4Z"/>
+          <path class="logo-flagpole" d="M22 8v34" />
+          <path class="logo-flag" d="M22 9h23l-7 7 7 7H22Z"/>
+          <circle class="logo-hole" cx="30" cy="39" r="7"/>
+          <path class="logo-putter" d="M42 45h12" />
+        </svg>
+      </span>
+      <span class="brand-text"><strong>Mini Golf</strong><span>Canada</span></span></a>
       <p>Canada-wide mini golf, mini putt, glow golf, party, and family activity directory built from researched business data.</p>
     </div>
     <nav aria-label="Footer">
